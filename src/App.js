@@ -18,7 +18,7 @@ function App() {
   const [searchValue,setSearchValue] = useState('')
   
   // filtramos para contar cuantas tareas tenemos realizadas
-  const completedTodos = todos.filter(todo=> todo.completed == true).length
+  const completedTodos = todos.filter(todo=> todo.completed === true).length
   // luego traemos ca natidad de todo
   const totalTodo = todos.length
 
@@ -40,6 +40,28 @@ function App() {
       return todoText.includes(searchText);
     })
   }
+
+const toggleCompleteTodo = (text) =>{
+  //buscamos en el array la posicion del elemento que queremos completar para marcarlo como completado por medio 
+  // de un findIndex()
+  const todoIndex = todos.findIndex(todo=> todo.text === text)
+  //creamos una nueva lista de Todos(que es una compia de la lista que teniamos) para poder modificar , asi react actualiza el estado de los Todos
+  const newTodos = [...todos];
+
+  //luego antes de enviar el cambio , modificamos el todo que marcamos como completado, o si esta completado lo velvemos a pasar a false
+	newTodos[todoIndex].completed = !newTodos[todoIndex].completed;
+  //ahora si mandamos a actualizar el estado de los todos, con las modificaciones 
+  
+	setTodos(newTodos);
+}
+ const deleteTodo = (text)=>{
+   //buscamos en el array la posicion del elemento que queremos ELIMINAR 
+  const todoIndex = todos.findIndex(todo=> todo.text === text)
+  const newTodos=[...todos]
+  newTodos.splice(todoIndex,1)
+  setTodos(newTodos)
+ }
+
   return (
     <React.Fragment>
      <TodoCounter
@@ -56,7 +78,9 @@ function App() {
 
          <TodoItem key={todo.text} 
                     text={todo.text}  
-                    completed={todo.completed}/>
+                    completed={todo.completed}
+                    onComplete={()=>toggleCompleteTodo(todo.text)}
+                    onDelete={()=>deleteTodo(todo.text)}/>
        ))}
      </TodoList>
     <CreateTodoButton/>
