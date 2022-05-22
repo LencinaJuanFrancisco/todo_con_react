@@ -1,10 +1,5 @@
 import React,{useState} from "react";
-import {TodoCounter} from "./TodoCouter";
-import {TodoSearch} from "./TodoSerch";
-import { TodoList } from "./TodoList";
-import { TodoItem } from "./TodoItem";
-import { CreateTodoButton } from './CreateTodoButton';
-// import './App.css';
+import { AppUI } from "./AppUI";
 const defaultTodos=[
   {text: 'cortar cebolla',completed:false},
   {text: 'Lavar los platos',completed:true},
@@ -25,7 +20,7 @@ function App() {
 
   //vamos a crear un filtrado 
   let searchedTodos = []
-  // verificamos si el unusuario ingreso algun valor en el input, si no ingresa nada, muestra todos los todos,
+  // verificamos si el uusuario ingreso algun valor en el input, si no ingresa nada, muestra todos los todos,
   // de lo contrario muestra lo que esta en el input 
   if (!searchValue.length >= 1) {
     searchedTodos = todos
@@ -63,29 +58,15 @@ const toggleCompleteTodo = (text) =>{
  }
 
   return (
-    <React.Fragment>
-     <TodoCounter
-      total={totalTodo}
-      completed={completedTodos}
-     />
-     <TodoSearch 
-        searchValue={searchValue}
-        setSearchValue={setSearchValue}
-     />
-     
-     <TodoList>
-       {searchedTodos.map(todo=>(
-
-         <TodoItem key={todo.text} 
-                    text={todo.text}  
-                    completed={todo.completed}
-                    onComplete={()=>toggleCompleteTodo(todo.text)}
-                    onDelete={()=>deleteTodo(todo.text)}/>
-       ))}
-     </TodoList>
-    <CreateTodoButton/>
-    
-    </React.Fragment>
+    <AppUI
+    totalTodos={totalTodo}
+    completedTodos={completedTodos}
+    searchValue={searchValue}
+    setSearchValue={setSearchValue}
+    searchedTodos={searchedTodos}
+    toggleCompleteTodo={toggleCompleteTodo}
+    deleteTodo={deleteTodo}
+    />
   );
 }
 
