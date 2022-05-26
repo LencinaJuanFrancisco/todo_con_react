@@ -2,7 +2,7 @@ import React, { createContext, useState} from 'react'
 import { useLocalStorga } from './useLocalStorage'
 
 
-const TodoContex = React.createContext();
+const TodoContex = createContext();
 function  TodoProvider(props){
     const {
         item: todos, // con los : renombramos 
@@ -10,6 +10,8 @@ function  TodoProvider(props){
         loading,
         error
       } = useLocalStorga('TODOS_V1',[])
+
+      const [openModal,setOpenModal] = useState(false)
       const [searchValue,setSearchValue] = useState('')
       
       // filtramos para contar cuantas tareas tenemos realizadas
@@ -58,7 +60,17 @@ function  TodoProvider(props){
       newTodos.splice(todoIndex,1)
       saveTodos(newTodos)
      }
-    
+     const addTodo = (text)=>{
+     
+     const newTodos=[...todos]
+     newTodos.push({
+       completed: false,
+       text:text 
+     })
+     saveTodos(newTodos)
+    }
+
+
     return (
         <TodoContex.Provider value={{
             loading,
@@ -69,7 +81,10 @@ function  TodoProvider(props){
             setSearchValue,
             searchedTodos,
             toggleCompleteTodo,
+            addTodo,
             deleteTodo,
+            openModal,
+            setOpenModal
         }}>
             {props.children}
         </TodoContex.Provider>

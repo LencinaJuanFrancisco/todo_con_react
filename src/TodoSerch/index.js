@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import './TodoSearch.css';
+import {TodoContex} from "../TodoContext"
 
-function TodoSearch({searchValue,setSearchValue}) {
- 
+function TodoSearch() {
+ const {searchValue,setSearchValue} = useState(TodoContex)
 
   const onSearcheValueChange = (e) =>{
-  console.log(e.target.value);
+  // console.log(e.target.value);
     setSearchValue(e.target.value)
 }
 
@@ -17,9 +18,6 @@ function TodoSearch({searchValue,setSearchValue}) {
              value={searchValue}
        />
        <p>{searchValue}</p>
-     
-  
-  
     </React.Fragment>
   )
 }
