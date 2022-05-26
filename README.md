@@ -1,6 +1,6 @@
 # Creacion de un ToDo List
 
-Creamos una lista de tareas en la que vamos a utilizar varios componentes para ir estudu¿iando sus compartamiento de forma idependiente y haciedo uso de HOOK
+Creamos una lista de tareas en la que vamos a utilizar varios componentes para ir estuduiando sus compartamiento de forma independiente y haciedo uso de HOOK
 
 # Hook utilisado
 
